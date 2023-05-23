@@ -17,34 +17,44 @@ class CreateVisiteController extends AbstractController
     {
 
         $lesExpos = $doctrine->getRepository(Exposition::class)->findAll();
-        $lesVisites = $doctrine->getRepository(Visite::class)->findAll();
-
+        $uneVisite = new Visite();
+        $uneVisite ->setNbVisiteursAdultes(0);
+        $uneVisite ->setNbVisiteursEnfants(0);
         $jauge = 10;
         $nbNisitesEnCours = "";
         $tarif = 0;
 
         $message = "";
-
-        $nbAdultes = $request->get('nbAdultes');
-        $nbEnfants = $request->get('nbEnfants');
-        $valider = $request->get('valider');
-
-        $i = 1;
-        for ($i = 1; $i = count($lesExpos); $i++) {
-            $request->get($i);
+        if ($request->get('nbAdultes') !== null){
+            $uneVisite ->setNbVisiteursAdultes($request->get('nbAdultes')) ;
         }
-
-
-        if ($nbEnfants != null && $nbAdultes != null) {
-
-            if ($valider != null) {
-
+        if ($request->get('nbEnfants') !== null){
+            $uneVisite ->setNbVisiteursEnfants($request->get('nbEnfants'));
+        }
+        $uneVisite ->setDateHeureArrivee(new \DateTime('Europe/Paris'));
+        foreach ($lesExpos as $expo) {
+            if ($request->get($expo->getId()) != null) {
+                $uneVisite ->addExposition($expo);
             }
         }
+        $valider = $request->get('valider');
+
+//        $i = 1;
+//        for ($i = 1; $i = count($lesExpos); $i++) {
+//            $request->get($i);
+//        }
+
+
+//        if ($nbEnfants != null && $nbAdultes != null) {
+//
+//            if ($valider != null) {
+//
+//            }
+//        }
 
         return $this->render('create_visite/index.html.twig', [
             'lesExpos' => $lesExpos,
-            'lesVisites' => $lesVisites,
+            'uneVisite' => $uneVisite,
         ]);
     }
 }

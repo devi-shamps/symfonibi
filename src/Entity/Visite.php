@@ -112,4 +112,19 @@ class Visite
 
         return $this;
     }
+
+    public function calculerTarif(): float
+    {
+        $tarif = 0;
+        foreach ($this->getExpositions() as $expo) {
+            $tarifAdulte = $expo->getTarifAdulte();
+            $tarifEnfant = $expo->getTarifEnfant();
+            $tarif += $this->getNbVisiteursAdultes() * $tarifAdulte + $this->getNbVisiteursEnfants() * $tarifEnfant;
+        }
+
+        return $tarif;
+    }
+    public function valider(): self {
+
+    }
 }
