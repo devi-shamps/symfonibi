@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OnGoingVisiteController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    <div class="row m-3 text-center">
+        <h1>Visites en cours</h1>
+    </div>
+    <div class="row m-3">
+        <div class="alert alert-info" role="alert">
+            Il y a <?=$nbVisitesEnCours?> visites en cours
+        </div>
+    </div>
+    <div class="row m-3">
+        <form method="post" action="./?action=ongoing_visites">
+            <button type="submit" class="btn btn-primary">Terminer les visites</button>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Numéro de visite</th>
+                    <th scope="col">Sélectionner les visites à terminer</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+            foreach ($visites as $visite)
+            { ?>
+                <tr>
+                    <th scope="row"><?=$visite['id']?></th>
+                    <td><input type="checkbox" name="<?=$visite['id']?>"</td>
+                </tr>
+                <?php
+            }
+            ?>
+                </tbody>
+            </table>
+        </form>
+    </div>
+{% endblock %}
