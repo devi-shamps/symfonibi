@@ -16,7 +16,6 @@ class ExpositionType extends AbstractType
             ->add('tarifAdulte')
             ->add('tarifEnfant')
             ->add('active')
-            ->add('visites')
         ;
     }
 

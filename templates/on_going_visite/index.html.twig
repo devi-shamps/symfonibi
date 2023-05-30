@@ -13,11 +13,11 @@
     </div>
     <div class="row m-3">
         <div class="alert alert-info" role="alert">
-            Il y a <?=$nbVisitesEnCours?> visites en cours
+            Il y a {{ lesVisites|length }} visites en cours
         </div>
     </div>
     <div class="row m-3">
-        <form method="post" action="./?action=ongoing_visites">
+        <form method="post" action="./?action=visiteEnCours">
             <button type="submit" class="btn btn-primary">Terminer les visites</button>
             <table class="table">
                 <thead class="thead-dark">
@@ -27,16 +27,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php
-            foreach ($visites as $visite)
-            { ?>
+            {% for visite in lesVisites %}
                 <tr>
-                    <th scope="row"><?=$visite['id']?></th>
-                    <td><input type="checkbox" name="<?=$visite['id']?>"</td>
+                    <th scope="row">{{ visite.id }}</th>
+                    <td><input type="checkbox" name="{{ visite.id }}"></td>
                 </tr>
-                <?php
-            }
-            ?>
+            {% endfor %}
                 </tbody>
             </table>
         </form>

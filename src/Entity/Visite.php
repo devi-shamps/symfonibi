@@ -124,7 +124,4 @@ class Visite
 
         return $tarif;
     }
-    public function valider(): self {
-
-    }
 }
